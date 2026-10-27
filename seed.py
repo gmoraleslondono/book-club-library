@@ -53,7 +53,11 @@ loans = [
     (6, 4, 7, "2026-10-12", "2026-10-26", "2026-10-20"),  # Neuromancer, returned
 ]
 
+
 def insert_values():
+    """Insert test data into library.db. The tables must exist beforehand."""
+
+    # Connect to database
     conn = sqlite3.connect(DB_PATH)
     conn.execute("PRAGMA foreign_keys = ON")
 
