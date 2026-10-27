@@ -36,10 +36,12 @@ book_authors = [
 ]
 
 members = [
-    (1, "Lola", "Berg", "lola.berg@example.com"),
-    (2, "Onion", "Knight", "onion.knight@example.com"),
-    (3, "Nils", "Testsson", "nils.test@example.com"),
-    (4, "Greta", "Sample", "greta.sample@example.com"),
+    (1, "Emily", "Carter", "emily.carter@example.com"),
+    (2, "James", "Whitaker", "james.whitaker@example.com"),
+    (3, "Olivia", "Bennett", "olivia.bennett@example.com"),
+    (4, "Daniel", "Foster", "daniel.foster@example.com"),
+    (5, "Hannah", "Brooks", "hannah.brooks@example.com"),
+    (6, "Thomas", "Reid", "thomas.reid@example.com"),
 ]
 
 loans = [
