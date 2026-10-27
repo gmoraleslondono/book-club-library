@@ -1,0 +1,48 @@
+authors = [
+    (1, "Terry", "Pratchett"),
+    (2, "Neil", "Gaiman"),
+    (3, "Ursula", "Le Guin"),
+    (4, "Frank", "Herbert"),
+    (5, "Astrid", "Lindgren"),
+    (6, "William", "Gibson"),
+    (7, "Frederik", "Pohl"),
+]
+
+books = [
+    (1, "Good Omens", 1990, "Fantasy"),
+    (2, "Dune", 1965, "Sci-Fi"),
+    (3, "A Wizard of Earthsea", 1968, "Fantasy"),
+    (4, "Pippi Longstocking", 1945, "Children"),
+    (5, "The Colour of Magic", 1983, "Fantasy"),
+    (6, "American Gods", 2001, "Fantasy"),
+    (7, "Neuromancer", 1984, "Sci-Fi"),
+    (8, "Gateway", 1977, "Sci-Fi"),
+]
+
+book_authors = [
+    (1, 1),  # Good Omens, Terry Pratchett
+    (1, 2),  # Good Omens, Neil Gaiman
+    (2, 4),  # Dune, Frank Herbert
+    (3, 3),  # A Wizard of Earthsea, Ursula Le Guin
+    (4, 5),  # Pippi Longstocking, Astrid Lindgren
+    (5, 1),  # The Colour of Magic, Terry Pratchett
+    (6, 2),  # American Gods, Neil Gaiman
+    (7, 6),  # Neuromancer, William Gibson
+    (8, 7),  # Gateway, Frederik Pohl
+]
+
+members = [
+    (1, "Lola", "Berg", "lola.berg@example.com"),
+    (2, "Onion", "Knight", "onion.knight@example.com"),
+    (3, "Nils", "Testsson", "nils.test@example.com"),
+    (4, "Greta", "Sample", "greta.sample@example.com"),
+]
+
+loans = [
+    (1, 1, 2, "2026-09-01", "2026-09-15", "2026-09-12"),  # Dune, returned
+    (2, 2, 2, "2026-09-20", "2026-10-04", "2026-10-02"),  # Dune again, returned
+    (3, 1, 1, "2026-10-10", "2026-10-24", None),          # Good Omens, OVERDUE
+    (4, 3, 3, "2026-10-20", "2026-11-03", None),          # Earthsea, open, not overdue
+    (5, 2, 6, "2026-09-05", "2026-09-19", "2026-09-18"),  # American Gods, returned
+    (6, 4, 7, "2026-10-12", "2026-10-26", "2026-10-20"),  # Neuromancer, returned
+]
