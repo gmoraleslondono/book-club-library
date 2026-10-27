@@ -78,3 +78,7 @@ def insert_values():
 
     conn.commit()
     conn.close()
+
+
+if __name__ == "__main__":
+    insert_values()
