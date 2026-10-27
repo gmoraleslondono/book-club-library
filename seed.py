@@ -1,3 +1,7 @@
+import sqlite3
+
+DB_PATH = "library.db"
+
 authors = [
     (1, "Terry", "Pratchett"),
     (2, "Neil", "Gaiman"),
@@ -46,3 +50,25 @@ loans = [
     (5, 2, 6, "2026-09-05", "2026-09-19", "2026-09-18"),  # American Gods, returned
     (6, 4, 7, "2026-10-12", "2026-10-26", "2026-10-20"),  # Neuromancer, returned
 ]
+
+def insert_values():
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute("PRAGMA foreign_keys = ON")
+
+    # Insert Authors
+    conn.executemany("INSERT INTO authors (author_id, first_name, last_name) VALUES (?, ?, ?)", authors)
+
+    # Insert Books
+    conn.executemany("INSERT INTO books (book_id, title, year, genre) VALUES (?, ?, ?, ?)", books)
+
+    # Insert Book Authors
+    conn.executemany("INSERT INTO book_authors (book_id, author_id) VALUES (?, ?)", book_authors)
+
+    # Insert Members
+    conn.executemany("INSERT INTO members (member_id, first_name, last_name, email) VALUES (?, ?, ?, ?)", members)
+
+    # Insert Loans
+    conn.executemany("INSERT INTO loans (loan_id, member_id, book_id, loan_date, due_date, return_date) VALUES (?, ?, ?, ?, ?, ?)", loans)
+
+    conn.commit()
+    conn.close()
