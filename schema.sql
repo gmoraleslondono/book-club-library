@@ -1,8 +1,14 @@
+drop table if exists book_authors;
+drop table if exists loans;
+drop table if exists members;
+drop table if exists books;
+drop table if exists authors;
+
 create table members(
 	member_id  	integer primary KEY,
 	first_name	text NOT NULL,
 	last_name	text NOT NULL,    
-	email 		text NOT NULL
+	email 		text NOT NULL UNIQUE
 );
 
 create table authors(
@@ -22,6 +28,9 @@ create table loans(
 	loan_id     integer primary KEY,
 	member_id	integer NOT NULL,
 	book_id     integer NOT NULL,
+	loan_date   TEXT NOT NULL,
+	due_date    TEXT NOT NULL,
+	return_date TEXT,
     foreign key (member_id) references members(member_id),
 	foreign key (book_id) references books(book_id)
 );
@@ -59,15 +68,11 @@ INSERT INTO book_authors VALUES
 (4, 2),
 (5, 2);
 
-select * from book_authors;
-
 INSERT into loans VALUES
-(1, 1, 5),
-(2, 3, 1);
+(1, 1, 5, '2026-10-27', '2026-11-10', NULL),
+(2, 3, 1, '2026-10-27', '2026-11-10', NULL);
 
-select * from loans;
-
-select member.first_name, book.title, author.first_name, author.last_name, loan.loan_id from loans loan 
+select member.first_name as member, book.title, author.first_name, author.last_name, loan.loan_date, loan.due_date from loans loan 
 join members member on member.member_id = loan.member_id
 join books book on book.book_id = loan.book_id
 join book_authors bk on bk.book_id = loan.book_id
