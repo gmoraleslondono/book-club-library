@@ -1,0 +1,10 @@
+Requirements.
+PREREQUISITE: The system must have access to a live internet connection.
+1. The system shall be able to retrieve data from openlibrary.org via api calls.
+2. The system shall be able to populate the created database with information retrieved from openlibrary.org
+3. The system shall be able to display a finite number of retrieved books for the user to loan them.
+4. The system shall be able to support functions such as lending and returning books.
+5. The system shall be able to perform operations such as display statistics on frequency of a book being borrowed.
+6. The system shall be able to display data about loans that are overdue.
+7. The system shall be able to work in a platform agnostic mode.
+8. The system shall be able to support user registration.
