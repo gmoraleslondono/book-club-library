@@ -9,5 +9,5 @@ Max: Worked with Jacob on the ER diagram. Plan to fix schema.sql part 1 task, to
 
 2026.10.28, Day 2:
 Gloria:
-Jacob:
-Max:
+Jacob: Reviewed PRs. Pushed PRs to main. Continue work on finalising the DB.
+Max: Reviewed PRs. Pushed PRs to main. Continue work on connecting DB to API.

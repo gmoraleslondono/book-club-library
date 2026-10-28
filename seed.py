@@ -1,6 +1,7 @@
 import sqlite3
 
 DB_PATH = "library.db"
+conn = sqlite3.connect(DB_PATH)
 
 authors = [
     (1, "Terry", "Pratchett"),
@@ -53,6 +54,23 @@ loans = [
     (6, 4, 7, "2026-10-12", "2026-10-26", "2026-10-20"),  # Neuromancer, returned
 ]
 
+def create_db():
+    try:
+        with open("schema.sql", encoding="utf-8") as file, sqlite3.connect(DB_PATH) as conn:
+            conn.executescript(file.read())
+    except OSError as exception:
+            print(exception)
+
+def populate_db(books):
+    
+    id = 1
+    for book in books:
+        conn.execute("INSERT INTO books (book_id, title, year, genre) VALUES (?, ?, ?, ?)", 
+                         (id, book["title"], book["first_publish_year"], "sci-fi"))
+        id += 1
+
+    conn.commit()
+    conn.close()
 
 def insert_values():
     """Insert test data into library.db. The tables must exist beforehand."""
