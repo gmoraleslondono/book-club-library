@@ -17,3 +17,13 @@ def _rebuild_tables():
         conn.executescript(file.read())
 
     conn.close()
+
+
+def reset_db():
+    """Rebuild the tables from schema.sql and insert the seed data."""
+
+    # Rebuilds tables
+    _rebuild_tables()
+
+    # Fill tables with seed data
+    insert_values()
