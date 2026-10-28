@@ -4,3 +4,6 @@ Jacob: Finalised ER diagram. Pushed seed.py file thereby completing his given ta
 Max: Finalised draft requirements. Pushed schema.sql file thereby completing his given task. Reviewed PRs.
 
 2026.10.28
+Jacob, Max: Worked together in XP way to complete basic input functions in the library app, modify
+the database file, review PRs and agree on next steps forward. Researched openlibrary api. 
+Jacob: Created database.py file.
