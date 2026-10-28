@@ -12,11 +12,13 @@ def _rebuild_tables():
     conn = sqlite3.connect(DB_PATH)
     conn.execute("PRAGMA foreign_keys = ON")
 
-    # Reads schema.sql to create tables. Closes when done
-    with open("schema.sql") as file:
-        conn.executescript(file.read())
+    try:
+        # Reads schema.sql to create tables.
+        with open("schema.sql", encoding="utf-8") as file:
+            conn.executescript(file.read())
 
-    conn.close()
+    finally:
+        conn.close()
 
 
 def clear_data():
