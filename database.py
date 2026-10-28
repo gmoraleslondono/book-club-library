@@ -6,7 +6,7 @@ DB_PATH = "library.db"
 
 
 def _rebuild_tables():
-    """Drop all tables by running schema.sql"""
+    """Drop and recreate all tables by running schema.sql."""
 
     # Connect to database
     conn = sqlite3.connect(DB_PATH)
@@ -17,6 +17,13 @@ def _rebuild_tables():
         conn.executescript(file.read())
 
     conn.close()
+
+
+def clear_data():
+    """Rebuild the tables from schema.sql, without data."""
+
+    # Rebuilds tables
+    _rebuild_tables()
 
 
 def reset_db():
