@@ -106,7 +106,7 @@ def _add_book(title, year):
         cursor = conn.cursor()
 
         # Checks if book already exists
-        cursor.execute("SELECT book_id FROM books WHERE title = ? AND year = ?", (title, year))
+        cursor.execute("SELECT book_id FROM books WHERE title = ? AND year IS ?", (title, year))
         row = cursor.fetchone()
 
         # If book exists
@@ -125,7 +125,7 @@ def _add_book(title, year):
         conn.close()
 
 
-def update_db(title: str, year: int, author_names: list[str] | None = None):
+def update_db(title: str, year: int | None = None, author_names: list[str] | None = None):
     """Add a book, with its authors, skipping anything that already exists."""
 
     book_id = _add_book(title, year)
