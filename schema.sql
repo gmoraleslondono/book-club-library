@@ -12,7 +12,7 @@ create table members(
 );
 
 create table authors(
-	author_id		integer primary KEY,
+	author_id	integer primary KEY,
 	name		text NOT NULL
 );
 
