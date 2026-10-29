@@ -46,8 +46,9 @@ def add_book_author(book_id, author_id):
     conn.execute("PRAGMA foreign_keys = ON")
 
     try:
-        # Adds book_author to database
         cursor = conn.cursor()
+
+        # Adds book_author to database
         cursor.execute("INSERT INTO book_authors (book_id, author_id) VALUES (?, ?)", (book_id, author_id))
 
         conn.commit()
@@ -76,20 +77,31 @@ def add_author(name):
 
 
 def add_book(title, year):
-    """Add a book to the database and return the new book_id."""
+    """Return the book_id for a book, add it first if it's new."""
 
     # Connect to database
     conn = sqlite3.connect(DB_PATH)
     conn.execute("PRAGMA foreign_keys = ON")
 
     try:
-        # Adds book to database
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO books (title, year) VALUES (?, ?)", (title, year))
 
+        # Checks if book already exists
+        cursor.execute("SELECT book_id FROM books WHERE title = ? AND year = ?", (title, year))
+        row = cursor.fetchone()
+
+        # If book exists
+        if row is not None:
+
+            # Return existing book id
+            return row[0]
+
+        # Adds book to database
+        cursor.execute("INSERT INTO books (title, year) VALUES (?, ?)", (title, year))
         conn.commit()
 
         # Returns the id of the new book
         return cursor.lastrowid
+
     finally:
         conn.close()
