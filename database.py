@@ -39,7 +39,7 @@ def reset_db():
 
 
 def add_book_author(book_id, author_id):
-    """Add a book_author to the database by linking book_id and author_id."""
+    """Link a book to a author, if they aren't linked already."""
 
     # Connect to database
     conn = sqlite3.connect(DB_PATH)
@@ -49,7 +49,7 @@ def add_book_author(book_id, author_id):
         cursor = conn.cursor()
 
         # Adds book_author to database
-        cursor.execute("INSERT INTO book_authors (book_id, author_id) VALUES (?, ?)", (book_id, author_id))
+        cursor.execute("INSERT OR IGNORE INTO book_authors (book_id, author_id) VALUES (?, ?)", (book_id, author_id))
 
         conn.commit()
     finally:
