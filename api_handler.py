@@ -13,7 +13,7 @@ class ApiHandler():
             authors = ", ".join(book.get("author_name", ["Unknown Author"]))
             year = book.get("first_publish_year")
 
-            clean_book_list.append((book_id,book["title"], authors, year))
+            clean_book_list.append((book_id, book["title"], year))
             
             print(f"{book_id:<3} {book['title']:<65} {authors:<60} {year:<5}")
             book_id += 1

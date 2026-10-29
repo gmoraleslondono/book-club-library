@@ -2,7 +2,7 @@ import sys
 from database import add_book, get_books_in_db
 
 def get_book(clean_book_list, user_input):
-    for id, title, authors, year in clean_book_list:
+    for id, title, year in clean_book_list:
         if id == user_input:
             return {"title" : title, "year" : year}
     return None
