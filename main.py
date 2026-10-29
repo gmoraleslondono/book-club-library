@@ -3,9 +3,9 @@ from seed import insert_values
 from api_handler import ApiHandler
 
 def pretty_print(books):
-    print(f"{"ID":<3} {"Title":<50} {"Published Year":<5} {"Genre":<10}")
+    print(f"{"ID":<3} {"Title":<25} {"Published Year":<5}")
     for book in books:
-        print(book)
+        print(f"{book[0]:<3} {book[1]:<25} {book[2]:<5}")
 
 if __name__ == "__main__":
     
@@ -13,12 +13,14 @@ if __name__ == "__main__":
     available_books = get_books_in_db()
     print("Welcome to our library. Please take a look at our local library and see if you wish to loan any of the books.\n")
     pretty_print(available_books)
-    print("\nIf you wish to book any of the dispalyed book, please type the desired ID. If you wish to browse yourself, please type the word 'next'\n")
+    print("\nIf you wish to book any of the displayed books, please type the desired ID. If you wish to browse yourself, please type the word 'next'\n")
     while True:
-        choice = input()
+        choice = input().lower()
         # add a method to select one of the generated books
-
-        # Proceed to the API call if the user does NOT want any of the pre-generated books.
-        api_obj = ApiHandler()
-        api_obj.display_books_per_category()
-        #*args
+        if choice == "next":
+            # Proceed to the API call if the user does NOT want any of the pre-generated books.
+            api_obj = ApiHandler()
+            api_obj.display_books_per_category()
+        else:
+            print("\nselect book for id in book['book_id']")
+            break

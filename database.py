@@ -10,15 +10,15 @@ def get_books_in_db():
     cursor.execute("select * from books")
     return cursor.fetchall()
 
-def add_book():
+def add_book(book):
 
     conn = sqlite3.connect(DB_PATH)
     conn.execute("PRAGMA foreign_keys = ON")
 
     books = get_books_in_db()
     new_id = len(books) + 1
-    conn.execute("INSERT INTO books (book_id, title, year, genre) VALUES (?, ?, ?, ?)", 
-                         (new_id, "Prison Island", 2017, "ABRACADABRA"))
+    conn.execute("INSERT INTO books (book_id, title, year) VALUES (?, ?, ?)", 
+                         (new_id, book["title"], book["year"]))
     conn.commit()
     conn.close()
 
