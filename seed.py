@@ -3,24 +3,24 @@ import sqlite3
 DB_PATH = "library.db"
 
 authors = [
-    (1, "Terry", "Pratchett"),
-    (2, "Neil", "Gaiman"),
-    (3, "Ursula", "Le Guin"),
-    (4, "Frank", "Herbert"),
-    (5, "Astrid", "Lindgren"),
-    (6, "William", "Gibson"),
-    (7, "Frederik", "Pohl"),
+    (1, "Terry Pratchett"),
+    (2, "Neil Gaiman"),
+    (3, "Ursula Le Guin"),
+    (4, "Frank Herbert"),
+    (5, "Astrid Lindgren"),
+    (6, "William Gibson"),
+    (7, "Frederik Pohl"),
 ]
 
 books = [
-    (1, "Good Omens", 1990, "Fantasy"),
-    (2, "Dune", 1965, "Sci-Fi"),
-    (3, "A Wizard of Earthsea", 1968, "Fantasy"),
-    (4, "Pippi Longstocking", 1945, "Children"),
-    (5, "The Colour of Magic", 1983, "Fantasy"),
-    (6, "American Gods", 2001, "Fantasy"),
-    (7, "Neuromancer", 1984, "Sci-Fi"),
-    (8, "Gateway", 1977, "Sci-Fi"),
+    (1, "Good Omens", 1990),
+    (2, "Dune", 1965),
+    (3, "A Wizard of Earthsea", 1968),
+    (4, "Pippi Longstocking", 1945),
+    (5, "The Colour of Magic", 1983),
+    (6, "American Gods", 2001),
+    (7, "Neuromancer", 1984),
+    (8, "Gateway", 1977),
 ]
 
 book_authors = [
@@ -62,10 +62,10 @@ def insert_values():
     conn.execute("PRAGMA foreign_keys = ON")
 
     # Insert Authors
-    conn.executemany("INSERT INTO authors (author_id, first_name, last_name) VALUES (?, ?, ?)", authors)
+    conn.executemany("INSERT INTO authors (author_id, name) VALUES (?, ?)", authors)
 
     # Insert Books
-    conn.executemany("INSERT INTO books (book_id, title, year, genre) VALUES (?, ?, ?, ?)", books)
+    conn.executemany("INSERT INTO books (book_id, title, year) VALUES (?, ?, ?)", books)
 
     # Insert Book Authors
     conn.executemany("INSERT INTO book_authors (book_id, author_id) VALUES (?, ?)", book_authors)
