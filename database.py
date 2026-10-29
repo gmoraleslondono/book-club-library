@@ -5,12 +5,20 @@ from seed import insert_values
 DB_PATH = "library.db"
 
 
+def _get_connection():
+    """Open a connection to the database with foreign keys enabled."""
+
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute("PRAGMA foreign_keys = ON")
+
+    return conn
+
+
 def _rebuild_tables():
     """Drop and recreate all tables by running schema.sql."""
 
     # Connect to database
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute("PRAGMA foreign_keys = ON")
+    conn = _get_connection()
 
     try:
         # Reads schema.sql to create tables.
@@ -38,12 +46,15 @@ def reset_db():
     insert_values()
 
 
-def add_book_author(book_id, author_id):
-    """Link a book to a author, if they aren't linked already."""
+def _add_book_author(book_id, author_id):
+    """Link a book to an author, if they aren't linked already."""
+
+    # Checks if ids are null
+    if book_id is None or author_id is None:
+        raise ValueError("book_id and author_id are required")
 
     # Connect to database
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute("PRAGMA foreign_keys = ON")
+    conn = _get_connection()
 
     try:
         cursor = conn.cursor()
@@ -56,12 +67,11 @@ def add_book_author(book_id, author_id):
         conn.close()
 
 
-def add_author(name):
+def _add_author(name):
     """Return the author_id for an author, add them first if they're new."""
 
     # Connect to database
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute("PRAGMA foreign_keys = ON")
+    conn = _get_connection()
 
     try:
         cursor = conn.cursor()
@@ -86,12 +96,11 @@ def add_author(name):
         conn.close()
 
 
-def add_book(title, year):
+def _add_book(title, year):
     """Return the book_id for a book, add it first if it's new."""
 
     # Connect to database
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute("PRAGMA foreign_keys = ON")
+    conn = _get_connection()
 
     try:
         cursor = conn.cursor()
@@ -114,3 +123,15 @@ def add_book(title, year):
         return cursor.lastrowid
     finally:
         conn.close()
+
+
+def update_db(title: str, year: int, author_names: list[str] | None = None):
+    """Add a book, with its authors, skipping anything that already exists."""
+
+    book_id = _add_book(title, year)
+
+    # If the book has authors
+    if author_names is not None:
+        for name in author_names:
+            author_id = _add_author(name)
+            _add_book_author(book_id, author_id)
