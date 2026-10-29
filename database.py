@@ -23,26 +23,6 @@ def add_book(book):
     conn.close()
 
 
-"""
-def add_author(author_data):
-
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute("PRAGMA foreign_keys = ON")
-    if len(author_data) > 1:
-            for ad in author_data:
-                conn.execute("INSERT INTO book_authors (book_id, title, year, genre) VALUES (?, ?, ?, ?)", 
-                                         (new_id, ad))
-    conn.execute("INSERT INTO book_authors (book_id, title, year, genre) VALUES (?, ?, ?, ?)", 
-                                             (new_id, author_data))
-    
-    conn.commit()
-    conn.close()
-"""
-def update_database():
-    add_book()
-    add_author()
-    add_book_authors()
-
 def _get_connection():
     """Open a connection to the database with foreign keys enabled."""
 
@@ -163,10 +143,10 @@ def _add_book(title, year):
 
 def update_db(title: str, year: int, author_names: list[str] | None = None):
     """Add a book, with its authors, skipping anything that already exists."""
-
     book_id = _add_book(title, year)
 
     # If the book has authors
+
     if author_names is not None:
         for name in author_names:
             author_id = _add_author(name)
