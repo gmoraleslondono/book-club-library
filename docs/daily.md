@@ -11,3 +11,8 @@ Max: Worked with Jacob on the ER diagram. Plan to fix schema.sql part 1 task, to
 Gloria:
 Jacob: Reviewed PRs. Pushed PRs to main. Continue work on finalising the DB.
 Max: Reviewed PRs. Pushed PRs to main. Continue work on connecting DB to API.
+
+2026.10.29, Day 3:
+Gloria: Will review written code in days of absence. Will attempt to resolve situation with assigning people on the board.
+Jacob: Will continue on the functionality of adding author, book_authors into db obtained from api.
+Max: Will continue work on input based functionality, to select predefined books/api books.

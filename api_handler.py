@@ -5,12 +5,14 @@ url = "https://openlibrary.org/search.json"
 class ApiHandler():
     def pretty_print(self, books):
 
-        print(f"{"Title":<65} {"Author(s)":<60} {"Published Year":<5}")
+        print(f"{"ID":<3} {"Title":<65} {"Author(s)":<60} {"Published Year":<5}")
+        book_id = 1
         for book in books["docs"]:
-            authors = ",".join(book.get("author_name", "Unknown Author"))
+            authors = ", ".join(book.get("author_name", "Unknown Author"))
             year = book.get("first_publish_year", "N/A")
 
-            print(f"{book['title']:<65} {authors:<60} {year:<5}")
+            print(f"{book_id:<3} {book['title']:<65} {authors:<60} {year:<5}")
+            book_id += 1
 
     def get_books(self):  
         headers = {"User-Agent": "OpenLibraryStudentProject"}
