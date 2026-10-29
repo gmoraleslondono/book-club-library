@@ -19,7 +19,7 @@ create table authors(
 create table books(
 	book_id		integer primary KEY,
 	title		text NOT NULL,
-    year		integer not null check (year > 0)
+    year		integer check (year > 0)
 );
 
 create table loans(
