@@ -11,6 +11,7 @@ if __name__ == "__main__":
     
     reset_db()
     available_books = get_books_in_db()
+    
     print("Welcome to our library. Please take a look at our local library and see if you wish to loan any of the books.\n")
     main_pretty_print(available_books)
     print("\nIf you wish to book any of the displayed books, please type the desired ID. If you wish to browse yourself, please type the word 'next'\n")

@@ -19,7 +19,10 @@ def select_book_from_api(clean_book_list):
             return
 
         # refine to use as args
-        update_db(loaned_book["title"], loaned_book["year"], loaned_book["authors"])
+        if loaned_book["year"] == "N/A":
+            update_db(loaned_book["title"], author_names = loaned_book["authors"])
+        else:
+            update_db(loaned_book["title"], loaned_book["year"], loaned_book["authors"])
 
         print("\nHere, we should get our loaned book added to DB.")
         for row in get_books_in_db():
