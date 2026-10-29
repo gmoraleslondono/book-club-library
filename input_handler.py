@@ -24,8 +24,8 @@ def select_book_from_api(clean_book_list):
         print("\nHere, we should get our loaned book added to DB.")
         for row in get_books_in_db():
             print(row)
+        # added data to the loans db; 
 
-        sys.exit()
     else:
         print("For now, no book.")
         return

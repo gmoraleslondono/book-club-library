@@ -10,19 +10,6 @@ def get_books_in_db():
     cursor.execute("select * from books")
     return cursor.fetchall()
 
-def add_book(book):
-
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute("PRAGMA foreign_keys = ON")
-
-    books = get_books_in_db()
-    new_id = len(books) + 1
-    conn.execute("INSERT INTO books (book_id, title, year) VALUES (?, ?, ?)", 
-                         (new_id, book["title"], book["year"]))
-    conn.commit()
-    conn.close()
-
-
 def _get_connection():
     """Open a connection to the database with foreign keys enabled."""
 
@@ -139,6 +126,9 @@ def _add_book(title, year):
         return cursor.lastrowid
     finally:
         conn.close()
+
+#def _add_loan():
+
 
 
 def update_db(title: str, year: int, author_names: list[str] | None = None):
