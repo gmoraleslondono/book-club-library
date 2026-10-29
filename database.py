@@ -57,17 +57,27 @@ def add_book_author(book_id, author_id):
 
 
 def add_author(name):
-    """Add an author to the database and return the new author_id."""
+    """Return the author_id for an author, add them first if they're new."""
 
     # Connect to database
     conn = sqlite3.connect(DB_PATH)
     conn.execute("PRAGMA foreign_keys = ON")
 
     try:
-        # Adds author to database
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO authors (name) VALUES (?)", (name,))
 
+        # Checks if author already exists
+        cursor.execute("SELECT author_id FROM authors WHERE name = ?", (name,))
+        row = cursor.fetchone()
+
+        # If author exists
+        if row is not None:
+
+            # Return the id of the existing author
+            return row[0]
+
+        # Adds author to database
+        cursor.execute("INSERT INTO authors (name) VALUES (?)", (name,))
         conn.commit()
 
         # Returns the id of the new author
@@ -93,7 +103,7 @@ def add_book(title, year):
         # If book exists
         if row is not None:
 
-            # Return existing book id
+            # Return the id of the existing book
             return row[0]
 
         # Adds book to database
@@ -102,6 +112,5 @@ def add_book(title, year):
 
         # Returns the id of the new book
         return cursor.lastrowid
-
     finally:
         conn.close()
