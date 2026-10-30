@@ -8,7 +8,17 @@ def get_books_in_db():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("select * from books")
-    return cursor.fetchall()
+    result = cursor.fetchall()
+    conn.close()
+    return result
+
+
+def get_book_id(book_title):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    id = cursor.execute("select book_id from books where title = ?", (book_title,)).fetchone()
+    conn.close()
+    return id[0]
 
 
 def clear_data():
@@ -36,15 +46,16 @@ def add_loan(loaned_book):
         cursor = conn.cursor()
 
         member_id = _get_random_member()
+        book_id = get_book_id(loaned_book["title"])
         loan_date = date.today()
         due_date = loan_date + timedelta(days=14)
-        parameters = (member_id, loaned_book["id"], str(loan_date), str(due_date))
+        parameters = (member_id, book_id, str(loan_date), str(due_date))
 
         cursor.execute("INSERT INTO loans (member_id, book_id, loan_date, due_date) VALUES (?, ?, ?, ?)", (parameters))
         conn.commit()
-        member = _get_member_name(loaned_book["id"], member_id)
-        print(f"The member {member[0]} {member[1]}, ID: {member_id} has loaned a book {loaned_book["title"]} with book ID {loaned_book["id"]}\
- The returned date for the book is {str(due_date)}.")
+        member = _get_member_name(book_id, member_id)
+        print(f"The member {member[0]} {member[1]}, ID: {member_id} has loaned a book {loaned_book["title"]} with book ID {book_id}\
+ The returned date for the book is: {str(due_date)}.")
 
     finally:
         conn.close()
