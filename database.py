@@ -1,5 +1,6 @@
 import sqlite3
 from seed import insert_values
+from datetime import date, timedelta
 
 DB_PATH = "library.db"
 
@@ -8,29 +9,6 @@ def get_books_in_db():
     cursor = conn.cursor()
     cursor.execute("select * from books")
     return cursor.fetchall()
-
-def _get_connection():
-    """Open a connection to the database with foreign keys enabled."""
-
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute("PRAGMA foreign_keys = ON")
-
-    return conn
-
-
-def _rebuild_tables():
-    """Drop and recreate all tables by running schema.sql."""
-
-    # Connect to database
-    conn = _get_connection()
-
-    try:
-        # Reads schema.sql to create tables.
-        with open("schema.sql", encoding="utf-8") as file:
-            conn.executescript(file.read())
-
-    finally:
-        conn.close()
 
 
 def clear_data():
@@ -48,6 +26,84 @@ def reset_db():
 
     # Fill tables with seed data
     insert_values()
+
+
+def add_loan(loaned_book):
+
+    conn = _get_connection()
+
+    try:
+        cursor = conn.cursor()
+
+        member_id = _get_random_member()
+        loan_date = date.today()
+        due_date = loan_date + timedelta(days=14)
+        parameters = (member_id, loaned_book["id"], str(loan_date), str(due_date))
+
+        cursor.execute("INSERT INTO loans (member_id, book_id, loan_date, due_date) VALUES (?, ?, ?, ?)", (parameters))
+        conn.commit()
+        member = _get_member_name(loaned_book["id"], member_id)
+        print(f"The member {member[0]} {member[1]}, ID: {member_id} has loaned a book {loaned_book["title"]} with book ID {loaned_book["id"]}\
+ The returned date for the book is: {str(due_date)}.")
+
+    finally:
+        conn.close()
+
+
+def update_db(title: str, year: int | None = None, author_names: list[str] | None = None):
+    """Add a book, with its authors, skipping anything that already exists."""
+    book_id = _add_book(title, year)
+
+    # If the book has authors
+
+    if author_names is not None:
+        for name in author_names:
+            author_id = _add_author(name)
+            _add_book_author(book_id, author_id)
+
+
+def _get_random_member():
+    try:
+        conn = _get_connection()
+        random_member_id = conn.execute("select member_id from members order by random() limit 1").fetchone()
+    finally:
+        conn.close()
+    return random_member_id[0]
+
+def _get_connection():
+    """Open a connection to the database with foreign keys enabled."""
+
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute("PRAGMA foreign_keys = ON")
+
+    return conn
+
+
+def _get_member_name(book_id, member_id):
+    try:
+        conn = _get_connection()
+        cursor = conn.cursor()
+        cursor.execute("select first_name, last_name from members "\
+                       "join loans on members.member_id = loans.member_id "\
+                       "where loans.book_id = ? AND members.member_id = ?", (book_id, member_id))
+        return cursor.fetchone()
+    finally:
+        conn.close()
+
+
+def _rebuild_tables():
+    """Drop and recreate all tables by running schema.sql."""
+
+    # Connect to database
+    conn = _get_connection()
+
+    try:
+        # Reads schema.sql to create tables.
+        with open("schema.sql", encoding="utf-8") as file:
+            conn.executescript(file.read())
+
+    finally:
+        conn.close()
 
 
 def _add_book_author(book_id, author_id):
@@ -127,15 +183,3 @@ def _add_book(title, year):
         return cursor.lastrowid
     finally:
         conn.close()
-
-
-def update_db(title: str, year: int | None = None, author_names: list[str] | None = None):
-    """Add a book, with its authors, skipping anything that already exists."""
-    book_id = _add_book(title, year)
-
-    # If the book has authors
-
-    if author_names is not None:
-        for name in author_names:
-            author_id = _add_author(name)
-            _add_book_author(book_id, author_id)
