@@ -1,5 +1,6 @@
 from database import reset_db, get_books_in_db
 from api_handler import ApiHandler
+from menu_handler import handle_displayed_book_choice
 import sys
 
 def main_pretty_print(books):
@@ -24,5 +25,4 @@ if __name__ == "__main__":
         elif choice == "quit":
             sys.exit()
         else:
-            print("\nThis will be next step. select book for id in book['book_id']")
-            break
+            handle_displayed_book_choice(available_books, choice)
