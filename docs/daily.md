@@ -27,3 +27,11 @@ This is a space for the Scrum Master to write a short note about the daily meeti
 ### Jacob: Will continue on the functionality of adding author, book_authors into db obtained from api.
 
 ### Max: Will continue work on input based functionality, to select predefined books/api books.
+
+## 2026.10.30, Day 4:
+
+### Gloria: Will work on ticket 25, add function to handle choices from the redefined database.
+
+### Jacob: Will review Mak PR. Later will start working on the ticket 27, listing the books that have never been borrowed.
+
+### Max: Will continue working on the ticket 22, add books from the OpenLibrary API. Later will continue with ticket 26, add function to borrow and return books.
