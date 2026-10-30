@@ -1,9 +1,13 @@
 import sqlite3
-
 from seed import insert_values
 
 DB_PATH = "library.db"
 
+def get_books_in_db():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("select * from books")
+    return cursor.fetchall()
 
 def _get_connection():
     """Open a connection to the database with foreign keys enabled."""
@@ -127,10 +131,10 @@ def _add_book(title, year):
 
 def update_db(title: str, year: int | None = None, author_names: list[str] | None = None):
     """Add a book, with its authors, skipping anything that already exists."""
-
     book_id = _add_book(title, year)
 
     # If the book has authors
+
     if author_names is not None:
         for name in author_names:
             author_id = _add_author(name)
