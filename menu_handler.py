@@ -59,9 +59,6 @@ def handle_displayed_book_choice(books, choice):
         print("6. Back")
 
         action = input().strip()
-        if action == "6":
-            print("\nType another book ID, 'next' to search, or 'quit'.")
-            return
 
         # Each number calls one placeholder. The sentence is the text under that function's name  (_doc_ attribute).
         if action == "1":
@@ -79,5 +76,8 @@ def handle_displayed_book_choice(books, choice):
         elif action == "5":
             print(f"\nRemove: {remove_book.__doc__}")
             remove_book(selected)
+        if action == "6":
+            print("\nType another book ID, 'next' to search, or 'quit'.")
+            return
         else:
             print("\nPlease choose one of the options above.")
