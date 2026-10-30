@@ -1,5 +1,4 @@
 import sqlite3
-
 from seed import insert_values
 
 DB_PATH = "library.db"
@@ -33,11 +32,13 @@ def _rebuild_tables():
     finally:
         conn.close()
 
+
 def clear_data():
     """Rebuild the tables from schema.sql, without data."""
 
     # Rebuilds tables
     _rebuild_tables()
+
 
 def reset_db():
     """Rebuild the tables from schema.sql and insert the seed data."""
@@ -127,7 +128,6 @@ def _add_book(title, year):
     finally:
         conn.close()
 
-#def _add_loan():
 
 def update_db(title: str, year: int | None = None, author_names: list[str] | None = None):
     """Add a book, with its authors, skipping anything that already exists."""

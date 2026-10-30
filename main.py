@@ -7,6 +7,7 @@ def main_pretty_print(books):
     for book in books:
         print(f"{book[0]:<3} {book[1]:<25} {book[2]:<5}")
 
+
 if __name__ == "__main__":
     
     reset_db()
@@ -17,14 +18,11 @@ if __name__ == "__main__":
     print("\nIf you wish to book any of the displayed books, please type the desired ID. If you wish to browse yourself, please type the word 'next'\n")
     while True:
         choice = input().lower()
-        # add a method to select one of the generated books
         if choice == "next":
             api_obj = ApiHandler()
-            api_obj.display_books_per_category()
+            api_obj.search_books_in_open_library()
         elif choice == "quit":
             sys.exit()
         else:
-            # invoke input_handler.py and create function there
-            # Gloria, this is here for you to begin with.
-            print("\nselect book for id in book['book_id']")
+            print("\nThis will be next step. select book for id in book['book_id']")
             break

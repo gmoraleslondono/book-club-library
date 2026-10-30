@@ -2,7 +2,6 @@ import sqlite3
 #from database import clear_data, get_books_in_db
 
 DB_PATH = "library.db"
-conn = sqlite3.connect(DB_PATH)
 
 authors = [
     (1, "Terry Pratchett"),
