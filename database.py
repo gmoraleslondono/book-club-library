@@ -36,15 +36,13 @@ def add_loan(loaned_book):
         cursor = conn.cursor()
 
         member_id = _get_random_member()
-        loan_date = date.today()
-        due_date = loan_date + timedelta(days=14)
-        parameters = (member_id, loaned_book["id"], str(loan_date), str(due_date))
+        parameters = (member_id, loaned_book["id"])
 
-        cursor.execute("INSERT INTO loans (member_id, book_id, loan_date, due_date) VALUES (?, ?, ?, ?)", (parameters))
+        cursor.execute("INSERT INTO loans (member_id, book_id) VALUES (?, ?)", (parameters))
         conn.commit()
         member = _get_member_name(loaned_book["id"], member_id)
-        print(f"The member {member[0]} {member[1]}, ID: {member_id} has loaned a book {loaned_book["title"]} with book ID {loaned_book["id"]}\
- The returned date for the book is {str(due_date)}.")
+        print(f"The member {member[0]} {member[1]} has loaned a book {loaned_book["title"]} with book ID {loaned_book["id"]}\
+ The returned date for the book is.")
 
     finally:
         conn.close()
